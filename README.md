@@ -9,3 +9,8 @@ Para a emissão, utilizaremos uma figura (nomeada "figure.jpeg"). Iremos carreg�
 2: Recepção
 Iremos utilisar interrupção para o início da recepção. Um sinal de sincronização deve ser utilizado antes do dado.
 Devemos criar um código para reestruturar a imagem.
+
+
+Os códigos do projeto possuem as seguintes funções:
+
+-Conversion: Converte a imagem em uma sequência de bits
