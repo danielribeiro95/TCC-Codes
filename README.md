@@ -14,3 +14,5 @@ Devemos criar um código para reestruturar a imagem.
 Os códigos do projeto possuem as seguintes funções:
 
 -jpeg_bin_conversion: Converte a imagem em uma sequência de bits
+
+-Reconverting: Reconverte a sequência de bits em uma imagem
