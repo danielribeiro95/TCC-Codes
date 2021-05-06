@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <pigpio.h>
+//We're gonna use GPIO2 as input
+
+int size = 296;
+int file[size];
+int time = 1000; // Time in microseconds
+const int k = 0;
+int receiving(int gpio, int level, uint32_t tick);
+
+int main()
+{
+
+	if (gpioInitialise()<0)
+	{
+		printf("Initialisation Failed \n");
+	}
+
+
+	else
+	{
+	gpioSetMode(2,0);// 2: Input
+	// ------------------------------------ RECEPTION -----------------------------------
+	while (k == 0)
+	{
+	file =	gpioSetAlertFunc(2,receiving);
+	}
+
+	// -------------------------------------------- WRITING FILE  ------------------------------------------------
+
+
+
+
+	gpioTerminate();
+	return 0;
+	}
+}
+
+
+int receiving(int gpio, int level, uint32_t tick)
+{
+	int file_aux[size];
+	for(int i = 0; i < size; i++){
+	file[i] = gpioRead(gpio);
+	gpioDelay(time);
+	}
+
+	k = k++
+}
