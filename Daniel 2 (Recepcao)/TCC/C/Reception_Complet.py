@@ -3,7 +3,7 @@ import ctypes
 
 print("Reception\n")
 
-reception = ctypes.CDLL("/home/pi/Documents/Testes/Tests_SO/Reception.so")
+reception = ctypes.CDLL("/home/pi/Documents/TCC/C/Reception.so")
 
 reception.reception()
 

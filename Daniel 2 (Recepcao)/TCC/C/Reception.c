@@ -4,8 +4,8 @@
 #include <pigpio.h>
 //We're gonna use GPIO2 as input
 
-//#define  size 8
-#define size 104
+#define  size 103
+//#define size 15975
 
 int time_transmission = 1000; // Time in microseconds (for emission)
 int k = 0;
@@ -18,7 +18,7 @@ int width;
 int old_level;
 int parity = 6;
 
-int main()
+void reception()
 {
 
 	if (gpioInitialise()<0)
@@ -40,18 +40,18 @@ int main()
 
 	// -------------------------------------------- WRITING FILE  ------------------------------------------------
 
-	printf("Received signal (with parity word 010): \n");
-	for (int i = 0; i < size+parity; i++){
-	printf("%d",file[i]);
-	}
+	//printf("Received signal (with parity word 010): \n");
+	//for (int i = 0; i < size+parity; i++){
+	//printf("%d",file[i]);
+	//}
 
 	int final_file[size];
 
 
-	printf("\n\nReceived Signal (without parity word 010): \n");
+	//printf("\n\nReceived Signal (without parity word 010): \n");
 	for (int i = 0; i < size; i++){
 	final_file[i] = file[i + parity/2];
-	printf("%d",final_file[i]);
+	//printf("%d",final_file[i]);
 	}
 
 
@@ -64,9 +64,8 @@ int main()
 	}
 
 
-	printf("\n\nEnd of Program\n");
+	//printf("\n\nEnd of Program\n");
 	gpioTerminate();
-	return 0;
 	}
 }
 

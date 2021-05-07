@@ -29,7 +29,7 @@ void transmission()
 	file_read = fopen("Doc1_bin.txt","r");
 
 	fseek(file_read,0,SEEK_END);  //Get the size of the file
-	int size = ftell(file_read); // Ignore the last element (end of file)
+	int size = ftell(file_read)-1; // Ignore the last element (end of file)
 	printf("\nSize = %d \n", size);
 	rewind(file_read);
 
