@@ -33,7 +33,7 @@ with open("Received_Text_bin.txt","r") as doc:
 
 	final_file = bytes(k)
 
-	file_write = open("Received_Image.jpeg","wb")
+	file_write = open("Received_Text.txt","wb")
 	try:
 		file_write.write(final_file)
 	except:

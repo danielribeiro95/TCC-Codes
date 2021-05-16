@@ -6,7 +6,7 @@
 
 //#define  size 103
 //#define size 41319
-#define size 15975
+#define size 51583
 #define parity 6
 
 int time_transmission = 10000; // Time in microseconds (for emission)
