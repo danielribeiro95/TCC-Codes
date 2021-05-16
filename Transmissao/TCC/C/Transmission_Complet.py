@@ -2,7 +2,7 @@ import ctypes
 
 print("File Conversion")
 
-with open("Fleur.jpeg","rb") as doc:
+with open("bee_movie.txt","rb") as doc:
 	bin_data = doc.read()
 
 	dado = []
