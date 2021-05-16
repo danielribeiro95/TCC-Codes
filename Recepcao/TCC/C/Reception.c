@@ -4,19 +4,20 @@
 #include <pigpio.h>
 //We're gonna use GPIO2 as input
 
-#define  size 103
-//#define size 15975
+//#define  size 103
+//#define size 41319
+#define size 15975
+#define parity 6
 
-int time_transmission = 1000; // Time in microseconds (for emission)
+int time_transmission = 10000; // Time in microseconds (for emission)
 int k = 0;
 void receiving(int gpio, int level, uint32_t tick);
-int file[1];
 uint32_t start;
 uint32_t stop ;
 uint32_t time_pulse;
 int width;
 int old_level;
-int parity = 6;
+_Bool file[size+parity];
 
 void reception()
 {
@@ -33,29 +34,28 @@ void reception()
 	// ------------------------------------ RECEPTION -----------------------------------
 
 	printf("Waiting for signal \n\n");
-	while (k < size+parity)
+	while (k < size+parity-1)
 	{
 	gpioSetAlertFunc(2,receiving);
 	}
-
 	// -------------------------------------------- WRITING FILE  ------------------------------------------------
 
-	//printf("Received signal (with parity word 010): \n");
-	//for (int i = 0; i < size+parity; i++){
-	//printf("%d",file[i]);
-	//}
+	printf("Received signal (with parity word 010): \n");
+	for (int i = 0; i < size+parity; i++){
+//	printf("%d",file[i]);
+	}
 
 	int final_file[size];
 
 
-	//printf("\n\nReceived Signal (without parity word 010): \n");
+	printf("\n\nReceived Signal (without parity word 010): \n");
 	for (int i = 0; i < size; i++){
 	final_file[i] = file[i + parity/2];
-	//printf("%d",final_file[i]);
+//	printf("%d",final_file[i]);
 	}
 
 
-
+	printf("\n\n");
 
 	FILE *file_write;
 	file_write = fopen("Received_Text_bin.txt","w");
@@ -72,36 +72,25 @@ void reception()
 
 void receiving(int gpio, int level, uint32_t tick)
 {
-	if(k==0){
-//		file[k] = level;
-		start = tick;
+	switch (k){
+	case 0:
+		file[k] = 0;
 		k++;
-		old_level = level;
-	}
-//	if(k==size+2){
-//		file[k]=level;
-//		k++;
-//	}
-	else{
+	break;
+	case 1:
+		stop = tick;
+		file[k] = old_level;
+		k++;
+	break;
+	default:
 		stop = tick;
 		time_pulse = stop - start;
 		width = time_pulse/time_transmission;
-		if((k==1)&&(width==1)){
+		for (int j = 0; j < width;j++){
+			file[k] = old_level;
 			k++;
 		}
-		if((k==1)&&(width>1)){
-			for(int j=0;j< width-1;j++){
-				file[k-1] = old_level;
-				k++;
-			}
-		}
-		else{
-			for (int j = 0; j < width;j++){
-				file[k-1] = old_level;
-				k++;
-			}
-		}
-		old_level = level;
-		start = tick;
 	}
+	old_level = level;
+	start = tick;
 }

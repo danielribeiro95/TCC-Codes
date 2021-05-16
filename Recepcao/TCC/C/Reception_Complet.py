@@ -3,7 +3,7 @@ import ctypes
 
 print("Reception\n")
 
-reception = ctypes.CDLL("/home/pi/Documents/TCC/C/Reception.so")
+reception = ctypes.CDLL("/home/pi/GitHub/TCC-Codes/Recepcao/TCC/C/Reception.so")
 
 reception.reception()
 
@@ -33,7 +33,7 @@ with open("Received_Text_bin.txt","r") as doc:
 
 	final_file = bytes(k)
 
-	file_write = open("Received_Text.txt","wb")
+	file_write = open("Received_Image.jpeg","wb")
 	try:
 		file_write.write(final_file)
 	except:
