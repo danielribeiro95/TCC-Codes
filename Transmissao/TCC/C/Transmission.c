@@ -4,7 +4,7 @@
 #include <pigpio.h>
 //We're gonna use GPIO2 as output
 
-int time_transmission = 1000; // Time in Microseconds
+int time_transmission = 10000; // Time in Microseconds
 int parity = 6;
 
 void transmission()
@@ -37,7 +37,7 @@ void transmission()
 
 	for(int i = 0; i<size; i++){
 	file[i] = fgetc(file_read) - '0';
-	//printf("%d", file[i]);		//Reading into the file the bits
+//	printf("%d", file[i]);		//Reading into the file the bits
 	}
 
 
@@ -53,7 +53,7 @@ void transmission()
 	}
 
 
-	printf("Size with dobule parity word 010: %d \n",size+parity);
+	printf("\n\nSize with dobule parity word 010: %d \n",size+parity);
 
 
 	fclose(file_read);

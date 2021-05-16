@@ -2,7 +2,7 @@ import ctypes
 
 print("File Conversion")
 
-with open("Doc1.txt","rb") as doc:
+with open("Fleur.jpeg","rb") as doc:
 	bin_data = doc.read()
 
 	dado = []
@@ -30,7 +30,7 @@ print("\nEnd of Conversion\n")
 
 print("\nTransmission:")
 
-transmission = ctypes.CDLL("/home/pi/Documents/TCC/C/Transmission.so")
+transmission = ctypes.CDLL("/home/pi/GitHub/TCC-Codes/Transmissao/TCC/C/Transmission.so")
 
 transmission.transmission()
 
