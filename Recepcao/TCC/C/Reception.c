@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pigpio.h>
-//We're gonna use GPIO2 as input
+//We're gonna use GPIO21 as input
 
 //#define  size 103
 //#define size 41319
 #define size 51583
 #define parity 6
+
+#define GPIO 21
 
 int time_transmission = 10000; // Time in microseconds (for emission)
 int k = 0;
@@ -29,14 +31,14 @@ void reception()
 
 	else
 	{
-	gpioSetMode(2,0);// 2: Input
+	gpioSetMode(GPIO,0);// 2: Input
 
 	// ------------------------------------ RECEPTION -----------------------------------
 
 	printf("Waiting for signal \n\n");
 	while (k < size+parity-1)
 	{
-	gpioSetAlertFunc(2,receiving);
+	gpioSetAlertFunc(GPIO,receiving);
 	}
 	// -------------------------------------------- WRITING FILE  ------------------------------------------------
 
