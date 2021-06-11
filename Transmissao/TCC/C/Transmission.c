@@ -2,7 +2,9 @@
 #include <stdlib.h> 
 #include <string.h> 
 #include <pigpio.h>
-//We're gonna use GPIO2 as output
+//We're gonna use GPIO21 as output
+
+#define GPIO 21
 
 int time_transmission = 10000; // Time in Microseconds
 int parity = 6;
@@ -23,7 +25,7 @@ void transmission()
 
 	// ------------------------------------ CONVERSION -----------------------------------
 
-	gpioSetMode(2,1); //2 => Output
+	gpioSetMode(GPIO,1); //21 => Output
 
 	FILE *file_read;
 	file_read = fopen("Doc1_bin.txt","r");
@@ -61,13 +63,15 @@ void transmission()
 
 	// -------------------------------------------- TRANSMISSION ------------------------------------------------
 
+	gpioDelay(2000000);
+
 	for (int i = 0; i < size+parity; i++){
-	gpioWrite(2,file_aux[i]);
+	gpioWrite(GPIO,file_aux[i]);
 	gpioDelay(time_transmission);
 	}
 
 	printf("\n");
-	gpioWrite(2,0);
+	gpioWrite(GPIO,0);
 	gpioTerminate();
 	}
 }
