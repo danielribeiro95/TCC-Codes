@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pigpio.h>
-//We're gonna use GPIO2 as input
+//We're gonna use GPIO21 as input
 
 //#define  size 103
 //#define size 41319
