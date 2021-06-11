@@ -1,0 +1,110 @@
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <string.h> 
+#include <pigpio.h>
+
+//We're gonna use GPIO2 as output
+
+#define TIME 10000 //Microseconds
+
+#define GPIO 2
+
+
+int time_transmission = 10000; // Time in Microseconds
+int parity = 6;
+int wave_id;
+void transmission()
+{
+
+
+
+	if (gpioInitialise()<0)
+	{
+		printf("Initialisation Failed \n");
+	}
+
+
+	else
+	{
+
+	// ------------------------------------ CONVERSION -----------------------------------
+
+	gpioSetMode(GPIO,1); //2 => Output
+
+	FILE *file_read;
+	file_read = fopen("Doc1_bin.txt","r");
+
+	fseek(file_read,0,SEEK_END);  //Get the size of the file
+	int size = ftell(file_read)-1; // Ignore the last element (end of file)
+	printf("\nSize = %d \n", size);
+	rewind(file_read);
+
+	int file[size]; //Contains the file
+
+	for(int i = 0; i<size; i++){
+	file[i] = fgetc(file_read) - '0';
+	printf("%d", file[i]);		//Reading into the file the bits
+	}
+
+
+	int file_aux[size+parity];
+	file_aux[0]=0;
+	file_aux[1]=1;
+	file_aux[2]=0;
+	file_aux[size+parity-1] = 0;
+	file_aux[size+parity-2] = 1;
+	file_aux[size+parity-3] = 0;
+	for(int i = 3; i<size+(parity/2);i++){
+		file_aux[i] = file[i-parity/2]
+	}
+
+
+	printf("\n\nSize with double parity word 010: %d \n",size+parity);
+
+
+	fclose(file_read);
+
+
+	// -------------------------------------------- TRANSMISSION -----------------------------------------------
+	// Maximum size of pulse = 11000;
+//	int max_pulse = 11000;
+	int sleepTime = TIME*(size+parity)/(1000000);
+
+
+	gpioPulse_t pulse[size+parity];
+
+	for (int i = 0; i<size+parity;i++){
+		if(file_aux[i]== 0){
+			pulse[i].gpioOn = 0;
+			pulse[i].gpioOff = (1<<GPIO);
+			pulse[i].usDelay = TIME;
+		}
+		else{
+			pulse[i].gpioOn = (1<<GPIO);
+			pulse[i].gpioOff = 0;
+			pulse[i].usDelay = TIME;
+		}
+	}
+
+	gpioWaveClear();
+	gpioWaveAddNew();
+	gpioWaveAddGeneric(size+parity,pulse);
+	wave_id = gpioWaveCreate();
+	printf("%d\n",wave_id);
+
+	gpioWaveTxSend(wave_id,PI_WAVE_MODE_ONE_SHOT);
+
+
+	time_sleep(sleepTime+2);
+//
+//
+//	for (int i = 0; i < size+parity; i++){
+//	gpioWrite(2,file_aux[i]);
+//	gpioDelay(time_transmission);
+//	}
+
+	printf("\n");
+	gpioWrite(2,0);
+	gpioTerminate();
+	}
+}
