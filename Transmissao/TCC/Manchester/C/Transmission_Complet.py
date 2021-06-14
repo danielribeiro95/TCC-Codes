@@ -30,7 +30,7 @@ print("\nEnd of Conversion\n")
 
 print("\nTransmission:")
 
-transmission = ctypes.CDLL("/home/pi/GitHub/TCC-Codes/Transmissao/TCC/C/Transmission.so")
+transmission = ctypes.CDLL("/home/pi/GitHub/TCC-Codes/Transmissao/TCC/Manchester/C/Transmission.so")
 
 transmission.transmission()
 
