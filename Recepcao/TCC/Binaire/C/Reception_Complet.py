@@ -3,7 +3,7 @@ import ctypes
 
 print("Reception\n")
 
-reception = ctypes.CDLL("/home/pi/GitHub/TCC-Codes/Recepcao/TCC/C/Reception.so")
+reception = ctypes.CDLL("/home/pi/GitHub/TCC-Codes/Recepcao/TCC/Binaire/C/Reception.so")
 
 reception.reception()
 
