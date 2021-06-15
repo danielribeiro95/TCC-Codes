@@ -10,7 +10,7 @@
 int resto;
 int potencia;
 
-int time_transmission = 1000;
+int time_transmission = 10000;
 int parity = 6;
 
 int main(){
@@ -24,7 +24,7 @@ else{
 // -------------------------------- CONVERSION ----------------------------
 
 	FILE *file_read;
-	file_read = fopen("Doc1.txt","r");
+	file_read = fopen("bee_movie.txt","r");
 
     	fseek(file_read,0,SEEK_END);  //Get the size of the file
 	int size = ftell(file_read); // Ignore the last element (end of file)
@@ -36,11 +36,11 @@ else{
 
     for (int i = 0; i < size ; i++){
         val[i] = (int)fgetc(file_read); 
-        printf("%d  ",val[i]);
+//        printf("%d ",val[i]);
     }
 
     fclose(file_read);
-    printf("\n");
+    printf("\n\n");
 
 
     for (int i = 0; i < size; i++){
@@ -52,9 +52,9 @@ else{
                 bin[i][j] = resto/(potencia);
                 resto = resto%potencia;
             }
-            printf("%d",bin[i][j]);
+//            printf("%d",bin[i][j]);
         }
-        printf("  ");
+//        printf("  ");
     }
 
 
