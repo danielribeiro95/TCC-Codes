@@ -5,16 +5,15 @@
 #include <math.h>
 //We're gonna use GPIO21 as input
 
-#define  size 103
+//#define  size 13
 //#define size 41319
-//#define size 51583
+#define size 6448
 
 #define GPIO 21
 
-
 #define parity 6
 
-int time_transmission = 1000; // Time in microseconds (for emission)
+int time_transmission = 10000; // Time in microseconds (for emission)
 int k = 0;
 void receiving(int gpio, int level, uint32_t tick);
 uint32_t start;
@@ -22,7 +21,7 @@ uint32_t stop ;
 uint32_t time_pulse;
 int width;
 int old_level;
-_Bool file[size+parity];
+_Bool file[8*size+parity];
 
 int main()
 {
@@ -39,7 +38,7 @@ int main()
 	// ------------------------------------ RECEPTION -----------------------------------
 
 	printf("Waiting for signal \n\n");
-	while (k < size+parity-1)
+	while (k < (8*size)+parity-1)
 	{
 	gpioSetAlertFunc(GPIO,receiving);
 	}
@@ -47,12 +46,28 @@ int main()
 
 	// -------------------------------------------- WRITING FILE  ------------------------------------------------
 
+	int size2 = sizeof(file)/(sizeof(file[0]));
+	printf("Size of received bits = %d \n",size2);
 
-	int final_file[size];
+//	printf("Received bits: \n");
+	for(int i = 0; i < (8*size)+ parity;i++){
+//	printf("%d",file[i]);
+	}
 
 
-	for (int i = 0; i < size; i++){
+
+	_Bool final_file[8*size];
+//	int l = 1;
+
+//	printf("\n\nReceived File: \n");
+	for (int i = 0; i < 8*size; i++){
 	final_file[i] = file[i + parity/2];
+//	printf("%d",final_file[i]);
+//	if(l == 8){
+//	printf("  ");
+//	l = 0;
+//	}
+//	l++;
 	}
 
 
