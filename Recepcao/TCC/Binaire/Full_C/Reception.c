@@ -5,15 +5,15 @@
 #include <math.h>
 //We're gonna use GPIO21 as input
 
-//#define  size 13
+#define  size 13 // hello world
 //#define size 41319
-#define size 6448
+//#define size 6448 //bee movie
 
-#define GPIO 21
+#define GPIO 20
 
 #define parity 6
 
-int time_transmission = 10000; // Time in microseconds (for emission)
+int time_transmission = 1000; // Time in microseconds (for emission)
 int k = 0;
 void receiving(int gpio, int level, uint32_t tick);
 uint32_t start;
