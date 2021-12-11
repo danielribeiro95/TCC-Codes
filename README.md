@@ -1,8 +1,8 @@
 # TCC-Codes
-Created Codes for a direct VLC 
+Created Codes for a communication between two raspberry Pi.
 
-Precisamos de dois códigos (para duas RaspBerry Pi) em Python e em C:
+Three
 
-1: Emissão
+1 - Transmission
 
-2: Recepção
+
